@@ -9,7 +9,7 @@ let
   wrapper = writeShellScriptBin "dstd" ''
     dir=$(dirname "$0")
     cd $dir
-    exec ./dontstarve_dedicated_server_nullrenderer_x64
+    exec ./dontstarve_dedicated_server_nullrenderer_x64 "$@"
   '';
 in
 stdenv.mkDerivation rec {
@@ -45,6 +45,7 @@ stdenv.mkDerivation rec {
     rm $out/bin/dontstarve
     mv $out/bin/lib64 $out/lib
 
+    echo "" >> $out/mods/modsettings.lua
     for f in $(find steamapps/workshop/content/322330/ -maxdepth 1 -mindepth 1 -type d)
     do
       bname=$(basename "$f")
